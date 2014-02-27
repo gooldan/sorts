@@ -46,7 +46,7 @@ template <class T>
 void qsort(T a[], int l, int r)
 {
 	if (l == r) return;
-	T x = a[rand() % (r - l) + l];
+	T x = a[rand() % (r - l + 1) + l];
 	int i = l;
 	int j = r;
 	while (i <= j)
