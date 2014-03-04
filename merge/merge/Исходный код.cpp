@@ -9,7 +9,7 @@ bool test(void(f)(T[], int))
 	int b[1] = { 12 };
 	f(b, 1);
 	time_t ltime;
-
+	bool res = true;
 	srand(time(&ltime));
 	int len = (int)pow(2, rand() % 14 + rand() % 2 - 1)+1;
 	int *a = new int[len];
@@ -20,7 +20,7 @@ bool test(void(f)(T[], int))
 	f(a, len);
 	for (int i = 0; i < len - 1; ++i)
 	if (a[i]>a[i + 1])
-		return false;
+		res=false;
 	for (int i = 0; i < len; ++i)
 	{
 		a[i] = len - i;
@@ -28,19 +28,19 @@ bool test(void(f)(T[], int))
 	f(a, len);
 	for (int i = 0; i < len - 1; ++i)
 	if (a[i]>a[i + 1])
-		return false;
+		res=false;
 	f(a, len);
 	for (int i = 0; i < len - 1; ++i)
 	if (a[i]>a[i + 1])
-		return false;
+		res=false;
 	int t = rand() % (len - 1);
 	swap(a[t], a[t + 1]);
 	f(a, len);
 	for (int i = 0; i < len - 1; ++i)
 	if (a[i]>a[i + 1])
-		return false;
+		res=false;
 	delete[]a;
-	return true;
+	return res;
 }
 template <class T>
 void merge(T *c, int inda, int indb, int lena, int lenb)

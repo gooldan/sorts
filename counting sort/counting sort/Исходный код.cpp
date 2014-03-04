@@ -3,13 +3,13 @@
 #include <time.h>
 using namespace std;
 template <class T>
-bool test(void(f)(T[], int))
+bool test(void(f)(T[], int,int))
 {
-	f(0, 0);
+	f(0, 0,0);
 	int b[1] = { 12 };
-	f(b, 1);
+	f(b, 1,12);
 	time_t ltime;
-
+	bool res = true;
 	srand(time(&ltime));
 	int len = (int)pow(2, rand() % 14 + 3); //+ rand() % 2 - 2;
 	int *a = new int[len];
@@ -17,30 +17,30 @@ bool test(void(f)(T[], int))
 	{
 		a[i] = rand() % 12031;
 	}
-	f(a, len);
+	f(a, len,12032);
 	for (int i = 0; i < len - 1; ++i)
 	if (a[i]>a[i + 1])
-		return false;
+		res= false;
 	for (int i = 0; i < len; ++i)
 	{
 		a[i] = len - i;
 	}
-	f(a, len);
+	f(a, len, 12032);
 	for (int i = 0; i < len - 1; ++i)
 	if (a[i]>a[i + 1])
-		return false;
-	f(a, len);
+		res= false;
+	f(a, len, 12032);
 	for (int i = 0; i < len - 1; ++i)
 	if (a[i]>a[i + 1])
-		return false;
+		res= false;
 	int t = rand() % (len - 1);
 	swap(a[t], a[t + 1]);
-	f(a, len);
+	f(a, len, 12032);
 	for (int i = 0; i < len - 1; ++i)
 	if (a[i]>a[i + 1])
-		return false;
+		res= false;
 	delete[]a;
-	return true;
+	return res;
 }
 void countingSort(int a[], int len,int m)
 {
@@ -61,13 +61,8 @@ void countingSort(int a[], int len,int m)
 }
 int main()
 {
-	int a[14] = { 12, 6, 27, 2, 5, 29, 11, 14, 7, 8, 16, 13, 28, 17 };
-	countingSort(a, 14, 29);
+	
+	cout << test<int>(countingSort);
 	int i;
-	for (int i = 0; i < 14; ++i)
-	{
-		cout << a[i] << ' ';
-	}
-	cout << test<int>(countingSort())
 	cin >> i;
 }
